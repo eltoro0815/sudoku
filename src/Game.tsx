@@ -129,6 +129,18 @@ export const Game: React.FC<{}> = () => {
     setCellSelected(indexOfArray);
   }
 
+  function onHandleKeyDown(e: React.KeyboardEvent, indexOfArray: number)
+  {
+    //console.log("indexOfArray: " + indexOfArray + "key pressed:" + e.key);
+    if (["1","2","3","4","5","6","7","8","9"].includes(e.key)) {
+      _userFillCell(indexOfArray, e.key);
+    }
+    else {
+      // not a number from 1-9 pressed
+    }
+
+  }
+
   /**
    * On Change Difficulty,
    * 1. Update 'Difficulty' level
@@ -225,7 +237,8 @@ export const Game: React.FC<{}> = () => {
         <Header onClick={onClickNewGame}/>
         <div className="innercontainer">
           <GameSection
-            onClick={(indexOfArray: number) => onClickCell(indexOfArray)}
+            onClick={(indexOfArray: number) => onClickCell(indexOfArray)} 
+            handleKeyDown={(e: React.KeyboardEvent, indexOfArray: number) => onHandleKeyDown(e, indexOfArray)}
           />
           <StatusSection
             onClickNumber={(number: string) => onClickNumber(number)}

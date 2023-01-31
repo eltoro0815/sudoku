@@ -2,7 +2,8 @@ import React from 'react';
 import { useSudokuContext } from '../../context/SudokuContext';
 
 type GameSectionProps = {
-  onClick: (indexOfArray: number) => void
+  onClick: (indexOfArray: number) => void,
+  handleKeyDown:  (e: React.KeyboardEvent, indexOfArray: number) => void
 };
 
 /**
@@ -80,16 +81,16 @@ export const GameSection = (props: GameSectionProps) => {
     if (value !== '0') {
       if (initArray[indexOfArray] === '0') {
         return (
-          <td className={`game__cell game__cell--userfilled game__cell--${highlight}selected`} key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+          <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly onKeyDown={(e) => props.handleKeyDown(e, indexOfArray)} className={`numberInput game__cell game__cell--userfilled game__cell--${highlight}selected`} value={value || ''}></input></td>
         )
       } else {
         return (
-          <td className={`game__cell game__cell--filled game__cell--${highlight}selected`} key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+          <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly onKeyDown={(e) => props.handleKeyDown(e, indexOfArray)}  className={`numberInput game__cell game__cell--filled game__cell--${highlight}selected`} value={value || ''}></input></td>
         )
       }
     } else {
       return (
-        <td className={`game__cell game__cell--${highlight}selected`} key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+        <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly onKeyDown={(e) => props.handleKeyDown(e, indexOfArray)} className={`numberInput game__cell game__cell--${highlight}selected`} value={value || ''}></input></td>
       )
     }
   }
@@ -101,20 +102,21 @@ export const GameSection = (props: GameSectionProps) => {
     if (value !== '0') {
       if (initArray[indexOfArray] === '0') {
         return (
-          <td className="game__cell game__cell--userfilled" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+          <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly className="numberInput game__cell game__cell--userfilled" value={value || ''}></input></td>
         )
       } else {
         return (
-          <td className="game__cell game__cell--filled" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+          <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly className="numberInput game__cell game__cell--filled" value={value || ''}></input></td>
         )
       }
     } else {
       return (
-        <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}>{value}</td>
+        <td className="game__cell" key={indexOfArray} onClick={() => props.onClick(indexOfArray)}><input readOnly className="numberInput game__cell" value={value || ''}></input></td>
       )
     }
   }
 
+  
   return (
     <section className="game">
       <table className="game__board">
